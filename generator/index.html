@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='%23B4551E'/><circle cx='16' cy='16' r='5' fill='%23F6E7DC'/></svg>">
-<title>ピンズジェネレーター | GotchaPins Tools</title>
+<title>フォトピンズをつくる | GotchaPins Tools</title>
 <meta name="robots" content="noindex">
 <style>
 :root{
@@ -23,102 +23,103 @@
   }
 }
 *{box-sizing:border-box}
-body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:system-ui,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
-  line-height:1.8; font-size:15px;
-}
-main{max-width:640px;margin:0 auto;padding:40px 20px 80px}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:system-ui,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.8;font-size:15px}
+main{max-width:660px;margin:0 auto;padding:40px 20px 80px}
 a{color:var(--accent-ink)}
-h1{font-size:22px;margin:0 0 6px;letter-spacing:.01em}
+h1{font-size:22px;margin:0 0 6px}
 .sub{margin:0 0 8px;color:var(--muted);font-size:13.5px}
-.privacy{
-  margin:0 0 32px;font-size:12.5px;color:var(--ink2);
-  background:var(--accent-soft);border-radius:6px;padding:10px 14px;
-}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;margin:0 0 18px}
+.privacy{margin:0 0 28px;font-size:12.5px;color:var(--ink2);background:var(--accent-soft);border-radius:6px;padding:10px 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;margin:0 0 16px}
 label{display:block;font-weight:700;font-size:13.5px;margin:0 0 8px}
 .hint{font-weight:400;color:var(--muted);font-size:12.5px}
-textarea{
-  width:100%;min-height:110px;resize:vertical;padding:12px;border-radius:6px;
-  border:1px solid var(--line2);background:var(--bg);color:var(--ink);
-  font:inherit;font-size:14.5px;line-height:1.7;
-}
-textarea:focus,button:focus-visible,.drop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.req{color:var(--accent-ink);font-size:11px;margin-left:4px}
+input[type=text],textarea{width:100%;padding:11px 12px;border-radius:6px;border:1px solid var(--line2);
+  background:var(--bg);color:var(--ink);font:inherit;font-size:14.5px;line-height:1.7}
+textarea{min-height:104px;resize:vertical}
+input:focus,textarea:focus,button:focus-visible,.drop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .count{text-align:right;font-size:12px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
 .count.over{color:var(--err);font-weight:700}
 
-.drop{
-  border:1.5px dashed var(--line2);border-radius:8px;padding:22px;text-align:center;
-  color:var(--muted);font-size:13.5px;cursor:pointer;background:var(--bg);
-}
+.photo-row{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.drop{flex:1 1 240px;border:1.5px dashed var(--line2);border-radius:8px;padding:26px 18px;text-align:center;
+  color:var(--muted);font-size:13.5px;cursor:pointer;background:var(--bg)}
 .drop.hot{border-color:var(--accent);background:var(--accent-soft);color:var(--ink2)}
 .drop input{display:none}
-.preview{display:none;align-items:center;gap:14px;margin-top:14px}
-.preview.on{display:flex}
-.preview img{width:84px;height:84px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
-.preview .meta{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-.preview button{margin-top:6px;font-size:12px;padding:4px 10px}
+.frame{flex:0 0 auto;width:108px}
+.frame .box{width:108px;height:192px;border-radius:4px;border:1px solid var(--line2);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--muted);font-size:11px}
+.frame img{width:100%;height:100%;object-fit:fill;display:block}
+.frame .cap{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;line-height:1.5}
 
-button{
-  font:inherit;font-size:14px;font-weight:700;padding:12px 22px;border-radius:6px;
-  border:1px solid var(--line2);background:var(--card);color:var(--ink);cursor:pointer;
-}
+button{font:inherit;font-size:14px;font-weight:700;padding:12px 22px;border-radius:6px;
+  border:1px solid var(--line2);background:var(--card);color:var(--ink);cursor:pointer}
 button:hover:not(:disabled){border-color:var(--accent)}
 button:disabled{opacity:.5;cursor:not-allowed}
 button.primary{background:var(--accent);border-color:var(--accent);color:#fff;padding:14px 28px}
 @media (prefers-color-scheme: dark){ button.primary{color:#16150F} }
+button.tiny{font-size:12px;padding:4px 10px;font-weight:400}
 
-.msg{border-radius:8px;padding:14px 16px;font-size:13.5px;margin:0 0 18px;display:none}
+.msg{border-radius:8px;padding:14px 16px;font-size:13.5px;margin:0 0 16px;display:none}
 .msg.on{display:block}
 .msg.err{background:var(--err-soft);color:var(--err);border:1px solid currentColor}
 .msg.ok{background:var(--card);border:1px solid var(--line)}
 .msg.ok b{color:var(--ok)}
-.msg code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;
-  background:var(--bg);padding:1px 5px;border-radius:4px}
+.msg code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;background:var(--bg);padding:1px 5px;border-radius:4px}
 .msg ol{margin:10px 0 0;padding-left:1.3em}
 .msg li{margin:0 0 4px}
-footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);
-  font-size:12.5px;color:var(--muted)}
+footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 footer p{margin:0 0 6px}
 </style>
 </head>
 <body>
 <main>
-  <h1>ピンズジェネレーター</h1>
-  <p class="sub">メッセージと写真を入れると、その人だけのピンズ（<code>.unitypackage</code>）ができます。<br>お試し版です。</p>
-  <p class="privacy">入力したメッセージと写真は<strong>この端末から出ません。</strong>生成はすべてブラウザの中で行われ、どこにも送信も保存もされません。</p>
+  <h1>フォトピンズをつくる</h1>
+  <p class="sub">写真とメッセージを入れると、その人だけのピンズ（<code>.unitypackage</code>）ができます。お試し版です。</p>
+  <p class="privacy">入力した写真と文字は<strong>この端末から出ません。</strong>生成はすべてブラウザの中で行われ、どこにも送信も保存もされません。</p>
 
   <div id="fatal" class="msg err"></div>
 
   <div class="card">
-    <label for="message">メッセージ <span class="hint">改行できます</span></label>
-    <textarea id="message" placeholder="たとえば&#10;「大会おつかれさま。あの日のこと、忘れないよ。」" maxlength="400"></textarea>
-    <div id="count" class="count">0 / 400</div>
-  </div>
-
-  <div class="card">
-    <label>写真 <span class="hint">任意。PNG に変換して 1024px 以下に縮めます</span></label>
-    <div class="drop" id="drop" tabindex="0" role="button" aria-label="写真を選ぶ">
-      クリックして選ぶ／ここにドラッグ
-      <input type="file" id="file" accept="image/*" aria-label="写真ファイルを選ぶ">
-    </div>
-    <div class="preview" id="preview">
-      <img id="thumb" alt="選んだ写真">
-      <div>
-        <div class="meta" id="pmeta"></div>
-        <button type="button" id="clear">外す</button>
+    <label>写真<span class="req">必須</span> <span class="hint">中央を 9:16（縦）に切り出します</span></label>
+    <div class="photo-row">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="写真を選ぶ">
+        クリックして選ぶ／ここにドラッグ
+        <input type="file" id="file" accept="image/*" aria-label="写真ファイルを選ぶ">
+      </div>
+      <div class="frame">
+        <div class="box" id="pbox">まだ未選択</div>
+        <div class="cap" id="pcap">ピンズに出る範囲</div>
       </div>
     </div>
   </div>
 
+  <div class="card">
+    <label for="name">ピンズ名<span class="req">必須</span> <span class="hint">全角8文字まで</span></label>
+    <input type="text" id="name" placeholder="例：夏の思い出" autocomplete="off">
+    <div id="cName" class="count">0 / 8</div>
+  </div>
+
+  <div class="card">
+    <label for="date">配布日付<span class="req">必須</span> <span class="hint">今日の日付が入っています。変えられます</span></label>
+    <input type="text" id="date" placeholder="2026.09.01" autocomplete="off">
+    <div id="cDate" class="count">0 / 10</div>
+  </div>
+
+  <div class="card">
+    <label for="message">メッセージ <span class="hint">任意。1行14文字 × 4行まで</span></label>
+    <textarea id="message" placeholder="大会おつかれさま。&#10;あの日のこと、&#10;忘れないよ。"></textarea>
+    <div id="cMsg" class="count">0行 / 4　最長 0 / 14</div>
+  </div>
+
   <button class="primary" id="go">ピンズを作る</button>
 
-  <div id="result" class="msg ok" style="margin-top:18px"></div>
+  <div id="result" class="msg ok" style="margin-top:16px"></div>
 
   <footer>
     <p>GotchaPins Tools ／ P-024 お試し版</p>
-    <p>できたファイルを Unity プロジェクトにドラッグすると取り込めます。生成のたびに固有IDが振られるので、複数のピンズを並べても壊れません。</p>
+    <p>できたファイルを Unity プロジェクトにドラッグすると取り込めます。<strong>lilToon が入っている必要があります。</strong></p>
+    <p>生成のたびに固有IDが振られるので、複数のピンズを並べても壊れません。</p>
   </footer>
 </main>
 
