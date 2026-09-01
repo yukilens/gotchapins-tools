@@ -12,7 +12,7 @@ GotchaPins のブラウザ内で完結するツール群。GitHub Pages で配�
 
 | パス | 中身 | 状態 |
 |---|---|---|
-| `/generator/` | ピンズジェネレーター（P-024）。メッセージと写真から固有ピンズの `.unitypackage` を作る | 準備中 |
+| [`/generator/`](https://yukilens.github.io/gotchapins-tools/generator/) | ピンズジェネレーター（P-024）。メッセージと写真から固有ピンズの `.unitypackage` を作る | **お試し版 稼働中** |
 
 ## 開発メモ
 
